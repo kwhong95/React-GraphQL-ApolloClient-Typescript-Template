@@ -1,10 +1,14 @@
 import { gql } from "@apollo/client";
 
-export interface User {
+export interface UserInfo {
   id : number;
   firstName: string;
   email: string;
   password: string;
+}
+
+export interface LoadUsers {
+  getAllUsers: UserInfo[];
 }
 
 export const LOAD_USERS = gql`

@@ -1,16 +1,25 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useQuery, gql } from "@apollo/client";
-import {LOAD_USERS, User} from "../graphQL/Queries";
+import {
+  LOAD_USERS,
+  UserInfo
+} from "../graphQL/Queries";
 
 export default function GetUser() {
-
-  const { error, loading, data } = useQuery<User>(LOAD_USERS);
+  const { error, loading, data } = useQuery(LOAD_USERS);
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
-    console.log(data)
+    if (data) {
+      setUsers(data.getAllUsers)
+    }
   }, [data])
 
   return (
-    <></>
+        <div>
+          {users.map((val: UserInfo) => {
+            return <h1>{val.firstName}</h1>
+      })}
+    </div>
   )
 }
